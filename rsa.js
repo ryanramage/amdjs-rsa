@@ -6,16 +6,17 @@ define(function(require) {
     var rsa = require('./lib/rsa');
     var base64 = require('./lib/base64');
     var x509 = require('./lib/X509');
+    var sha256 = require('./lib/sha256')
     var my = {};
 
-    my.generate = function(passphrase, options, callback) {
+    my.generate = function(seed, options, callback) {
         var options = options || {};
         if (!options.bits) options.bits = 1024;
-        if (!options.useEntropy) options.useEntropy = true;
-        if (!options.seed) options.seed = 'tst'; //sha256.hex(passphrase)
+        if (options.useEntropy === undefined) options.useEntropy = true;
 
+        var hashed_seed = sha256.hex_sha256(seed)
         try {
-            rsa.Math.seedrandom(options.seed, options.useEntropy);
+            rsa.Math.seedrandom(hashed_seed, options.useEntropy);
             var key = new rsa.RSAKey()
             key.generate(options.bits, "03");
             callback(null, key);
