@@ -5,7 +5,7 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(function(require) {
+define(['require', './rsa', './asn1hex', './base64'], function(require) {
     var my = {};
 // 
 // x509.js - X509 class to read subject public key from certificate.

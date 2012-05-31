@@ -5,7 +5,7 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(function(require) {
+define(['require', './jsbn'], function(require) {
 
 var jsbn = require('./jsbn');
 

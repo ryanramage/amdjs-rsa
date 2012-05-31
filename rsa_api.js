@@ -3,11 +3,11 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(function(require) {
+define(['require', './jsbn', './asn1hex', './base64'], function(require) {
 
 var my = {};
 // Depends on jsbn.js and rng.js
-var jsbn = require('./jsbn.js');
+var jsbn = require('./jsbn');
 var ASN1HEX = require('./asn1hex');
 var base64 = require('./base64');
 

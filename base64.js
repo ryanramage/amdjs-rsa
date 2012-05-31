@@ -3,9 +3,9 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(function(require) {
+define(['require', './jsbn'], function(require) {
 
-    var jsbn = require('./jsbn.js');
+    var jsbn = require('./jsbn');
     var b64map="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     var b64pad="=";
     var my = {};
