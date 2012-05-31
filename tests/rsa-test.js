@@ -1,5 +1,5 @@
 var test = require('tap').test;
-var rsa = require('../lib/rsa.js');
+var rsa = require('./rsa.js');
 
 
 

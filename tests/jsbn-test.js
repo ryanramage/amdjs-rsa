@@ -1,5 +1,5 @@
 var test = require('tap').test;
-var jsbn = require('../lib/jsbn.js');
+var jsbn = require('./jsbn.js');
 
 
 

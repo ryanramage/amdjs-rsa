@@ -1,12 +1,12 @@
 if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
+    var define = require('amdefine')(module, require);
 }
 
-define(['require', './lib/rsa_api', './lib/base64',  './lib/x509',  './lib/sha256'], function(require) {
-    var rsa = require('./lib/rsa_api');
-    var base64 = require('./lib/base64');
-    var x509 = require('./lib/x509');
-    var sha256 = require('./lib/sha256')
+define(['require', './rsa-tools/rsa_api', './rsa-tools/base64',  './rsa-tools/x509',  './rsa-tools/sha256'], function(require) {
+    var rsa = require('./rsa-tools/rsa_api');
+    var base64 = require('./rsa-tools/base64');
+    var x509 = require('./rsa-tools/x509');
+    var sha256 = require('./rsa-tools/sha256')
     var my = {};
 
     my.generate = function(seed, options, callback) {
@@ -24,6 +24,21 @@ define(['require', './lib/rsa_api', './lib/base64',  './lib/x509',  './lib/sha25
             callback(e);
         }
     }
+
+    my.generateSync = function(seed, options) {
+        var options = options || {};
+        if (!options.bits) options.bits = 1024;
+        if (options.useEntropy === undefined) options.useEntropy = true;
+
+        var hashed_seed = sha256.hex_sha256(seed)
+
+        rsa.Math.seedrandom(hashed_seed, options.useEntropy);
+        var key = new rsa.RSAKey()
+        key.generate(options.bits, "03");
+        return key;
+
+    }
+
 
     my.privateFromPEM = function(string) {
         var key = new rsa.RSAKey();
