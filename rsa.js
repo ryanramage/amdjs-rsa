@@ -4,7 +4,8 @@ if (typeof define !== 'function') {
 
 define(function(require) {
     var rsa = require('./lib/rsa');
-    var base64 = require('./lib/base64')
+    var base64 = require('./lib/base64');
+    var x509 = require('./lib/X509');
     var my = {};
 
     my.generate = function(passphrase, options, callback) {
@@ -41,9 +42,18 @@ define(function(require) {
     // Returns the ascii-armored version of the public key.
     my.publicKeyString = function(rsakey)
     {
-        pubkey = base64.hex2b64(rsakey.n.toString(16));
+        var pubkey = base64.hex2b64(rsakey.n.toString(16));
         return pubkey;
     }
+
+    my.publicKeyFromX509 = function(string) {
+        var public = new x509.X509();
+        public.readCertPEM(string);
+        return public;
+    }
+
+
+
 
     return my;
 });

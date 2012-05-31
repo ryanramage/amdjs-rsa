@@ -14,16 +14,25 @@ test('Big Decimal constructor', function(t){
 
 });
 
-test('Read Private RSA key', function(t) {
+test('Confirm public and private generate same internal public key string', function(t) {
 
-    var private_key = fs.readFile('./sample_certs/test_rsa.prv.pem', function(err, data){
-        console.log(data.toString());
+
+    t.plan(1);
+    fs.readFile('./sample_certs/mycert1.pem', function(err, data){
         var private = rsa.privateFromPEM(data.toString());
-        console.log(private);
-        var public = rsa.publicKeyString(private);
-        console.log(public);
-        t.end();
+        var public1 = rsa.publicKeyString(private);
+
+        fs.readFile('./sample_certs/mycert1-pub.pem', function(err, data){
+            var public_x509 = rsa.publicKeyFromX509(data.toString());
+
+            public2 = rsa.publicKeyString(public_x509.subjectPublicKeyRSA);
+
+            t.equal(public1, public2, "Internal public keys dervived from private and public are same");
+
+            t.end();
+        });
     })
 
 
 });
+
