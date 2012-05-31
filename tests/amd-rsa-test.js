@@ -20,7 +20,8 @@ test('Read Private RSA key', function(t) {
         console.log(data.toString());
         var private = rsa.privateFromPEM(data.toString());
         console.log(private);
-
+        var public = rsa.publicKeyString(private);
+        console.log(public);
         t.end();
     })
 

@@ -4,7 +4,7 @@ if (typeof define !== 'function') {
 
 define(function(require) {
     var rsa = require('./lib/rsa');
-
+    var base64 = require('./lib/base64')
     var my = {};
 
     my.generate = function(passphrase, options, callback) {
@@ -29,7 +29,21 @@ define(function(require) {
         return key;
     }
 
+    my.publicKeyFromString = function(string)
+    {
+        var N = base64.b64to16(string.split("|")[0]);
+        var E = "03";
+        var rsa = new rsa.RSAKey();
+        rsa.setPublic(N, E);
+        return rsa
+    }
 
+    // Returns the ascii-armored version of the public key.
+    my.publicKeyString = function(rsakey)
+    {
+        pubkey = base64.hex2b64(rsakey.n.toString(16));
+        return pubkey;
+    }
 
     return my;
 });
