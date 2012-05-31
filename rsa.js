@@ -2,10 +2,10 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(function(require) {
-    var rsa = require('./lib/rsa');
+define(['require', './lib/rsa_api', './lib/base64',  './lib/x509',  './lib/sha256'], function(require) {
+    var rsa = require('./lib/rsa_api');
     var base64 = require('./lib/base64');
-    var x509 = require('./lib/X509');
+    var x509 = require('./lib/x509');
     var sha256 = require('./lib/sha256')
     var my = {};
 

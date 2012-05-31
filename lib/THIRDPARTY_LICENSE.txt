@@ -15,7 +15,7 @@ jsbn.js - basic BigInteger class
 jsbn2.js - BigInteger class extension
 prng4.js - Random number generator
 rng.js - Random number generator
-rsa.js - RSAKey class for RSA public key encryption.
+rsa_api.js - RSAKey class for RSA public key encryption.
 rsa2.js - RSA class extension for RSA private key decryption.
 
 http://www-cs-students.stanford.edu/~tjw/jsbn/LICENSE
